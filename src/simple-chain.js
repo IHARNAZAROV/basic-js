@@ -1,25 +1,37 @@
 const CustomError = require("../extensions/custom-error");
 
 const chainMaker = {
-  getLength() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  chain: [],
+  getLength: function () { // возвращает длину цепи в виде числа
+    return this.chain.length;
   },
-  addLink(value) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  addLink: function (value) { // добавляет строку в цепь. Если нет аргумента добавить ( )
+    let link = '( )';
+    if (value === undefined) {} else {
+      link = '( ' + value + ' )';
+    }
+    this.chain.push(link);
+    return this;
   },
-  removeLink(position) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  reverseChain() { // переворачивает цепь
+    let reverseElement;
+    for (reverseElement of this.chain.reverse()) {
+
+    }
+    return this;
   },
-  reverseChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  removeLink: function (position) { // удаляет УКАЗАНОЕ звено в цепи. Если аргумент не целое число нужно кинуть ошибку
+    if (position < 1 || position > this.getLength() || typeof (position) !== "number") {
+      this.chain = [];
+      throw Error;
+    }
+    this.chain.splice(position - 1, 1);
+    return this;
   },
-  finishChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  finishChain: function () { // заканчивает цепь и возвращает её
+    let result = this.chain.join(`~~`);
+    this.chain = [];
+    return result;
   }
 };
 
